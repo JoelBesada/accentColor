@@ -1,0 +1,20 @@
+                    =============================
+                         accentColor Script
+                                v1.0
+
+                       Demo and documentation:
+                      www.joelb.me/accentcolor
+                    =============================
+
+    A small script for retrieving the accent color of a given site.
+    This is done by calculating the dominant color of the site's favicon,
+    which generally gives the expected results. The format of the returned
+    color is 'rgb(R, G, B)'.
+
+    Connects to http://g.etfv.co/ (getFavicon by Jason Cartwright) to get favicons. 
+
+    Author: Joel Besada (http://www.joelb.me)
+    Date: 2011-12-10
+
+    Copyright 2011, Joel Besada
+    MIT Licensed (http://www.opensource.org/licenses/mit-license.php)
