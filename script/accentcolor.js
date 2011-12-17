@@ -76,20 +76,23 @@
             onError("Missing URL parameter");
             return;
         }
-         // Insert HTTP protocol if http or https is not supplied 
-        if (href.indexOf("http") === -1) {
-            href = "http://" + href;
-        }
+        
         var xhr = new XMLHttpRequest();  
-
         // Get favicon data from proxy
         if(needsProxy && proxy) {
-            xhr.open("GET", proxy + "?url=" + href, true);
+            // The proxy script can return 403 forbidden on some server setups
+            // when the HTTP protocol is supplied in the url parameter, so we remove it
+            href = href.replace(/https?:\/\//g, "");
+            xhr.open("GET", proxy + "?url=" + escape(href), true);
             xhr.responseType = "text";
 
         // Get favicon directly with CORS
         } else {
-            xhr.open("GET", "http://g.etfv.co/" + href + "?defaulticon=none", true);  
+            // Insert HTTP protocol if http or https is not supplied 
+            if (href.indexOf("http") === -1) {
+                href = "http://" + href;
+            }
+            xhr.open("GET", "http://g.etfv.co/" + escape(href) + "?defaulticon=none", true);  
             xhr.responseType = "arraybuffer";  
         }
 
@@ -111,7 +114,6 @@
                         // The proxy has already converted the data to base64
                         base64 = xhr.responseText;
                     }
-                    
                     image.onload = function() {
                         // Draw the image on a canvas and send the image data to
                         // the findDominantColor function
