@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+		<link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="style/style.css" /> 
+		<script type="text/javascript" src="script/prefixfree.min.js"></script>
+		<meta name="description" content="Demo page for the accentColor script. The script is used to retrieve the accent color of any external website." /> 
+		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" /> 
+		<title>accentColor</title>
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-25206568-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+	</head>
+	<body>
+		<div class="light"></div>
+		<div class="wrapper">
+			<header>
+				 <!-- Spantastic! -->
+				<h1><span class="small">JS</span> accent<span class="color-text"><span>C</span><span>o</span><span>l</span><span>o</span><span>r</span></span> <span class= "small">Script</span></h1>
+				<h2>get the accent color of any website</h2>
+			</header>
+			<div class="social">
+				<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_counter addthis_pill_style"></a>
+				</div>
+				<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4eebcdda402218c5"></script>
+			</div>
+			<div class="demo">
+				<div class="tv" title="Yeah, I suck @ Photoshop :C">
+					<div class="background"></div>
+					<div class="screen">
+						<div class="noise"></div>
+					</div>
+					<div class="foreground"></div>
+				</div>	
+				<div class="input">
+					<h2>Try It Out!</h2>
+					<form action="javascript: getColor()">
+						<span>URL: </span><input type="text" placeholder="e.g. twitter.com" name="url" class="text">
+						<input type="submit" value="Go!" class="button">
+					</form>
+				</div>
+				<div class="examples">
+					<h2>Some Examples</h2>
+					<ul class="plain">
+						<li><a href="http://www.twitter.com">Twitter</a></li>
+						<li><a href="http://www.facebook.com">Facebook</a></li>
+						<li><a href="http://www.dribbble.com">Dribbble</a></li>
+						<li><a href="http://www.forrst.com">Forrst</a></li>
+						<li><a href="http://www.youtube.com">YouTube</a></li>
+						<li><a href="http://www.vimeo.com">Vimeo</a></li>
+					</ul>
+					<ul class="border">
+						<li><a href="http://www.twitter.com">Twitter</a></li>
+						<li><a href="http://www.facebook.com">Facebook</a></li>
+						<li><a href="http://www.dribbble.com">Dribbble</a></li>
+						<li><a href="http://www.forrst.com">Forrst</a></li>
+						<li><a href="http://www.youtube.com">YouTube</a></li>
+						<li><a href="http://www.vimeo.com">Vimeo</a></li>
+					</ul>
+					<ul class="background">
+						<li><a href="http://www.twitter.com">Twitter</a></li>
+						<li><a href="http://www.facebook.com">Facebook</a></li>
+						<li><a href="http://www.dribbble.com">Dribbble</a></li>
+						<li><a href="http://www.forrst.com">Forrst</a></li>
+						<li><a href="http://www.youtube.com">YouTube</a></li>
+						<li><a href="http://www.vimeo.com">Vimeo</a></li>
+					</ul>
+					<span>(The links above are automatically colored)</span>
+				</div>
+				<div class="docs">
+					<h2>How Is This Done?</h2>
+					<p>
+						The script determines the website's accent color by analyzing its favicon. More often than not, 
+						the dominant color of the site's icon is the same as its signature color.
+					</p>
+					<p>	
+						Credit goes to <a href="http://www.jasoncartwright.com/">Jason Cartwright</a> and his <a href="http://g.etfv.co/">getFavicon</a> service, which
+						is used to access the favicons.
+					</p>
+					<h2>How Do I Use This?</h2>
+					<p>
+						Simple. Include the script on your site, and call the <code>getAccentColor</code> function.
+						The function takes an object as a parameter with four properties: <code>url</code>, <code>onComplete</code>,
+						<a href="#proxy" class="internal"><code>proxy</code></a> and <code>onError</code>. The proxy and onError parameters are optional.
+					</p>
+					<pre><span class="function">getAccentColor</span>({
+  <span class="prop">url:</span> "twitter.com",
+  <span class="prop">onComplete:</span> function(color) {
+    <span class="comment">// The color variable is a string with the format rgb(R, G, B).</span>
+
+    <span class="comment">// Here's an example of how to set the text color of a link</span>
+    document.getElementById("your-link").style.color = color;
+    <span class="comment">// Or in jQuery</span>
+    $("#your-link").css("color", color);
+  },
+  <span class="comment">// Optional parameters below</span>
+  <span class="prop">proxy:</span> "path/to/your/proxy.php",
+  <span class="prop">onError:</span> function(error) {
+    <span class="comment">// The error variable is a string with an error message.</span>
+  }
+});</pre>
+					<h2 id="proxy">CORS Fallback with a Proxy</h2>
+					<p>
+						The script uses <a href="http://www.enable-cors.com">CORS</a> to connect to cross domain services.
+						Since this isn't <a href="http://caniuse.com/#feat=cors">fully supported by all browsers</a>, you can use the
+						PHP proxy file that is provided with the script as fallback. 
+						This extends the support to <a href="http://caniuse.com/#feat=canvas">all canvas supporting browsers</a>.
+					</p>
+
+					<h2>Download</h2>
+					<div class="download">
+						<a href="http://www.github.com" class="button">Full Source</a>
+						<a href="http://www.github.com" class="button">Minified Script</a>
+						<a href="http://www.github.com" class="button">Proxy Script</a>
+					</div>
+				</div>
+				<div class="copy">
+					&copy; Copyright 2011. Created by <a href="http://joelb.me">Joel Besada</a>. MIT Licensed.
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+	<script type="text/javascript" src="script/accentcolor.js"></script>
+	<script type="text/javascript" src="script/demo.js"></script>
+	</body>
+</html>

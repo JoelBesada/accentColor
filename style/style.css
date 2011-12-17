@@ -1,0 +1,348 @@
+/* Styles are prefixed automatically with prefixfree.js (http://leaverou.github.com/prefixfree/) */
+
+/* === CSS RESET === */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* === End of CSS RESET === */
+
+
+html {
+	height: 100%;
+	width: 100%;
+}
+
+a { 
+	text-decoration: none;
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	background: #1f2a2d;
+	background: url(../assets/background.png);
+	text-align: center;
+	color: #ddd;
+	text-shadow: 0 3px 5px rgba(0,0,0,0.3);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Paytone One', sans-serif;
+	text-shadow: 0 5px 10px black;
+	color: white;
+}
+
+header {
+	font-size: 60px;	
+}
+header span.small {
+	font-size: 20px;
+}
+header span.color-text {
+	font-size: 80px;
+}
+header span.color-text span {
+	transition: color 2s ease-out;
+}
+
+header h2 {
+	margin-top: 30px;
+	font-size: 20px;
+	text-transform: capitalize;
+}
+
+.social {
+	position: fixed;
+	top: 5px;
+	left: 5px;
+}
+
+a:active, .button:active { position: relative; top: 1px;}
+
+.wrapper {
+	width: 700px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.light {
+	background: url(../assets/light.jpg) no-repeat;
+	height: 850px;
+	width: 100%;
+	z-index: -1;
+	position: absolute;
+}
+
+.button {
+	padding: 5px 10px;
+	font-weight: bold;
+	background: #2B4A57;
+	color: white !important;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: background 0.15s ease-out;
+	box-shadow: 0 3px 7px rgba(0,0,0,0.6);
+}
+
+.button:hover {
+	background: #255163;
+	text-decoration: none !important;
+}
+
+.tv {
+	position: relative;
+	margin: 0 auto;
+	margin-top: 80px;
+	margin-bottom:  -160px;
+}
+
+.tv, .tv .background, .tv .foreground {
+	width: 371px;
+	height: 556px;
+}
+
+.tv div {
+	position: absolute;
+}
+
+.tv .background {
+	background: url(../assets/screen-backdrop-dark.png);
+}
+
+.tv .foreground {
+	background: url(../assets/tv.png);
+}
+
+.tv .screen {
+	width: 270px;
+	height: 205px;
+	top: 50px;
+	left: 50%;
+	margin-left: -135px;
+	opacity: 0.0;
+	background: url(../assets/white-noise.png);
+}
+
+.tv .screen .noise {
+	width: 270px;
+	height: 205px;
+	background: url(../assets/white-noise.png);
+	transition: opacity 0.5s ease-out;
+	opacity: 0;
+}
+
+.tv .screen.on, .tv .screen.on .noise {
+	animation: crt-on 0.4s 0s 1;
+	animation-timing-function: ease-out;
+	opacity: 1.0;
+}
+
+.tv .screen.off {
+	animation: crt-off 0.4s 0s 1;
+	animation-timing-function: ease-out;
+}
+
+.input {
+	position: relative;
+	z-index: 2;
+	margin-top: 20px;
+}
+
+.input form, .input .button {
+	margin-top: 20px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+}
+
+.input form .text {
+	height: 25px;
+	width: 210px;
+	border: none;
+	margin-left: 5px;
+	border-radius: 3px;
+	padding-left: 5px;
+	box-shadow: 0 3px 7px rgba(0,0,0,0.6);
+
+}
+
+.input .button {
+	position: relative;
+	margin: 0;
+	margin-left: 5px;
+}
+
+.examples { 
+	margin-top: 100px;
+}
+
+.examples h2 {
+	margin-bottom: 0;
+}
+
+.examples a {
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	transition-property: font-size, color, background-color;
+	transition-duration: 0.2s, 2s, 2s;
+
+}
+
+.examples a:hover {
+	font-size: 20px;
+}
+
+.examples ul {
+	margin: 0 auto;
+	padding: 20px 0;
+	width: 600px;
+}
+
+.examples ul li {
+	text-align: center;
+	float: left;
+	margin: 0;
+	width: 100px;
+}
+
+.examples .border a {
+	border-bottom: 2px solid;
+}
+.examples .background {
+	margin-top: 5px;
+}
+.examples .background a{
+	color: white;
+	padding: 5px;
+	border-radius: 5px;
+	background: #232323;
+	box-shadow: 0 3px 7px rgba(0,0,0,0.6);
+}
+.examples span {
+	clear: both;
+	display: block;
+	margin-top: 40px;
+	font-size: 14px;
+	opacity: 0.7;
+}
+
+.docs {
+	margin-top: 70px;
+}
+
+.docs p, .docs pre {
+	text-align: left;
+	line-height: 1.7em;
+	width: 500px;
+	margin: 30px auto;
+}
+
+.docs p {
+	font-size: 16px;
+}
+
+.docs a, .copy a {
+	font-weight: bold;
+	color: #5ED0F2;
+}
+.docs a:hover, .copy a:hover {
+	text-decoration: underline;
+}
+
+.docs pre {
+	font-size: 12px;
+	text-align: left;
+	font-family: "Monaco", "Lucida Console", monospace;
+	background: #232323;
+	padding: 10px;
+	border-radius: 10px;
+	margin-bottom: 50px;
+}
+
+.docs pre .comment { color: #8686A3; }
+.docs pre .prop { color: #D2F25E; }
+.docs pre .function { color: #5ED0F2; font-weight: bold; }
+
+.docs .download {
+	height: 100px;
+	padding-top: 30px;
+}
+.docs .button {
+	font-size: 18px;	
+	margin: 5px;
+}
+
+.copy {
+	font-size: 12px;
+	color: #aaa;
+	padding-bottom: 20px;
+}
+
+@keyframes crt-on {
+	0% {
+		opacity: 0.0;
+		transform: scale(0.1, 0.005);
+		box-shadow: inset 0 9999px 0 rgba(255,255,255,1.0);
+	}
+	40% {
+		opacity: 1.0;
+	}
+	70% {
+		transform: scale(1.0, 0.005);
+		box-shadow: inset 0 9999px 0 rgba(255,255,255,1.0);
+	}
+	100% {
+		transform: scale(1.0, 1.0);
+		box-shadow: inset 0 9999px 0 rgba(255,255,255,0.0);
+	}
+}
+
+@keyframes crt-off {
+	0% {
+		transform: scale(1.0, 1.0);
+		box-shadow: inset 0 9999px 0 rgba(255,255,255,0.0);
+		opacity: 1.0;
+	}
+	40% {
+		transform: scale(1.0, 0.005);
+		box-shadow: inset 0 9999px 0 rgba(255,255,255,1.0);
+	}
+	70% {
+		opacity: 1.0;
+	}
+	100% {
+		opacity: 0.0;
+		transform: scale(0.1, 0.005);
+		box-shadow: inset 0 9999px 0 rgba(255,255,255,1.0);
+	}
+}
