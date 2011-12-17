@@ -45,20 +45,6 @@ function init() {
 	setInterval(animateNoise, 50);
 }
 
-
-function encodeData(data) {
-	var strData = "";
-	if (typeof data == "string") {
-		strData = data;
-	} else {
-		var aData = data;
-		for (var i=0;i<aData.length;i++) {
-			strData += String.fromCharCode(aData[i]);
-		}
-	}
-	return btoa(strData);
-}
-
 function animateNoise() {
 	if(loading) {
 		var pos = Math.random() * 100 + "% " + Math.random() * 100 + "%";
@@ -119,6 +105,7 @@ function screenOn() {
 
 function screenOff() {
 	tvScreen.removeClass("on").addClass("off");
+	tvOn = false;
 }
 
 function debug(){
