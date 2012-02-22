@@ -12,7 +12,7 @@
     which generally gives the expected results. The format of the returned
     color is 'rgb(R, G, B)'.
 
-    Connects to http://g.etfv.co/ (getFavicon by Jason Cartwright) to get favicons. 
+    Connects to http://g.etfv.co/ (getFavicon by Jason Cartwright) to get favicons.
 
     Author: Joel Besada (http://www.joelb.me)
     Date: 2011-12-10
@@ -21,7 +21,7 @@
     MIT Licensed (http://www.opensource.org/licenses/mit-license.php)
 */
 
-;(function () {
+(function () {
     // Default values
     var defaults = {
             // URL of site to get the color from
@@ -77,7 +77,7 @@
             return;
         }
         
-        var xhr = new XMLHttpRequest();  
+        var xhr = new XMLHttpRequest();
         // Get favicon data from proxy
         if(needsProxy && proxy) {
             // The proxy script can return 403 forbidden on some server setups
@@ -88,15 +88,15 @@
 
         // Get favicon directly with CORS
         } else {
-            // Insert HTTP protocol if http or https is not supplied 
+            // Insert HTTP protocol if http or https is not supplied
             if (href.indexOf("http") === -1) {
                 href = "http://" + href;
             }
-            xhr.open("GET", "http://g.etfv.co/" + escape(href) + "?defaulticon=none", true);  
-            xhr.responseType = "arraybuffer";  
+            xhr.open("GET", "http://g.etfv.co/" + escape(href) + "?defaulticon=none", true);
+            xhr.responseType = "arraybuffer";
         }
 
-        xhr.onreadystatechange = function () {  
+        xhr.onreadystatechange = function () {
             if(xhr.readyState === 4) {
                 if(xhr.status === 200) {
                     var base64, canvas, ctx, color,
@@ -105,9 +105,9 @@
                     if(xhr.responseType === "arraybuffer") {
                         // Read the arraybuffer as a uint8array
                         // and convert it to base64
-                        var arrayBuffer = xhr.response; 
-                        if (arrayBuffer) { 
-                            var byteArray = new Uint8Array(arrayBuffer);  
+                        var arrayBuffer = xhr.response;
+                        if (arrayBuffer) {
+                            var byteArray = new Uint8Array(arrayBuffer);
                             base64 = uint8ToBase64(byteArray);
                         }
                     } else {
@@ -126,8 +126,8 @@
                         // If the favicon consists of mainly transparent and gray colors
                         if(!color) {
                             onError("No accent color found for " + href);
-                            return;                        
-                        }
+                            return;
+                                                    }
                         // Return the color as a parameter to onComplete
                         onComplete(color);
                     };
@@ -136,7 +136,7 @@
                         image.src = imagePrefix + base64;
                     } else {
                         onError("No response from " + href);
-                    } 
+                    }
                      
                 } else if(xhr.status === 204) {
                     onError("No response from " + href);
@@ -144,8 +144,8 @@
                     onError("Service Unavailable");
                 }
             }
-        };  
-        xhr.send(null); 
+        };
+        xhr.send(null);
 
     }
     
@@ -162,33 +162,33 @@
      * Filters out gray and transparent colors, and groups
      * similiar colors together. */
     function findDominantColor(imageData) {
-    	var arr = imageData.data, 
-    		cr, cg, cb, ca, 
-    		numColors = 0,
-    		colors = {},
-            colorProp; 
-    	for (var i = 0; i < arr.length; i+=4) {
-    		// Get the R, G, B and A values
+        var arr = imageData.data,
+        cr, cg, cb, ca,
+        numColors = 0,
+        colors = {},
+        colorProp;
+        for (var i = 0; i < arr.length; i+=4) {
+            // Get the R, G, B and A values
             cr = arr[i]; cg = arr[i+1]; cb = arr[i+2]; ca = arr[i+3];
 
             // Only store non-transparent, non-gray colors in the colors object
-    		if (acceptableColor(cr,cg,cb,ca)) {
-    			propStr = cr + "," + cg + "," + cb;
+            if (acceptableColor(cr,cg,cb,ca)) {
+                propStr = cr + "," + cg + "," + cb;
 
                 // Check if the same color already is in the colors object
-    			if(colors[propStr]) {
-    				colors[propStr]++;
+                if(colors[propStr]) {
+                    colors[propStr]++;
                 // Check if a close enough color is in the object
-    			} else if(colorProp = findCloseColorProp(colors, propStr)) {
+                } else if((colorProp = findCloseColorProp(colors, propStr))) {
                     colors[colorProp]++;
                 // Else create a new property
                 } else {
-    				colors[propStr] = 1;
-    			}
-    		}
-    	}
+                    colors[propStr] = 1;
+                }
+            }
+        }
         var max = getMax(colors);
-    	return max ? "rgb(" + max + ")" : null;
+        return max ? "rgb(" + max + ")" : null;
     }
     
     /* Checks if a color is too transparent or too gray,
@@ -198,7 +198,7 @@
         return !(isTooTransparent(a) || isTooGray(r,g,b));
     }
 
-     /* Transparency check, anything at less than 
+    /* Transparency check, anything at less than
      * half opacity is considered transparent */
     function isTooTransparent(a) {
         return a < 127;
@@ -239,21 +239,21 @@
 
     /* Finds the property in an object with the highest value */
     function getMax(obj) {
-    	var max = 0;
-    	var maxProp;
-    	for(var prop in obj) {
-    		if(obj.hasOwnProperty(prop)) {
-    			if(obj[prop] > max) {
-    				max = obj[prop];
-    				maxProp = prop;
-    			}
-    		}
-    	}
-    	return maxProp;
+        var max = 0;
+        var maxProp;
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop)) {
+                if(obj[prop] > max) {
+                    max = obj[prop];
+                    maxProp = prop;
+                }
+            }
+        }
+        return maxProp;
     }
 
     /* Converts R, G and B values into a CSS readable RGB string */
     function colorString(r, g, b) {
-    	return "rgb(" + parseInt(r, 10) + "," + parseInt(g, 10) + "," + parseInt(b, 10) + ")";
+        return "rgb(" + parseInt(r, 10) + "," + parseInt(g, 10) + "," + parseInt(b, 10) + ")";
     }
 })();
