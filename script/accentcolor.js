@@ -1,7 +1,7 @@
 /*
                     =============================
                          accentColor Script
-                                v1.0
+                                v1.0.1
 
                        Demo and documentation:
                       www.joelb.me/accentcolor
@@ -123,7 +123,7 @@
                         ctx.drawImage(image, 0, 0, iconDimension, iconDimension);
 
                         color = findDominantColor(ctx.getImageData(0, 0, iconDimension, iconDimension));
-                        // If the favicon consists of mainly transparent and gray colors
+                        // If no accent color was found
                         if(!color) {
                             onError("No accent color found for " + href);
                             return;
@@ -171,7 +171,6 @@
             // Get the R, G, B and A values
             cr = arr[i]; cg = arr[i+1]; cb = arr[i+2]; ca = arr[i+3];
 
-            // Only store non-transparent, non-gray colors in the colors object
             if (acceptableColor(cr,cg,cb,ca)) {
                 propStr = cr + "," + cg + "," + cb;
 
@@ -188,14 +187,15 @@
             }
         }
         var max = getMax(colors);
+        // Allow gray colors as fallback
+        if(!max) max = getMax(colors, true);
+
         return max ? "rgb(" + max + ")" : null;
     }
     
-    /* Checks if a color is too transparent or too gray,
-     * we don't want to include these because they do not
-     * contribute to the accent color of a site. */
+    /* Checks if a color is acceptable to use as an accent color */
     function acceptableColor(r, g, b, a) {
-        return !(isTooTransparent(a) || isTooGray(r,g,b));
+        return !isTooTransparent(a);
     }
 
     /* Transparency check, anything at less than
@@ -208,6 +208,10 @@
      * units away from the average (gray) color, we consider
      * the color to be gray (not saturated). */
     function isTooGray(r,g,b) {
+        r = parseInt(r, 10);
+        g = parseInt(g, 10);
+        b = parseInt(b, 10);
+
         var boundary = 15,
             average = (r + g + b) / 3;
 
@@ -238,12 +242,12 @@
     }
 
     /* Finds the property in an object with the highest value */
-    function getMax(obj) {
+    function getMax(obj, allowGray) {
         var max = 0;
         var maxProp;
         for(var prop in obj) {
             if(obj.hasOwnProperty(prop)) {
-                if(obj[prop] > max) {
+                if(obj[prop] > max && (!isTooGray.apply(null, prop.split(",")) || allowGray)) {
                     max = obj[prop];
                     maxProp = prop;
                 }

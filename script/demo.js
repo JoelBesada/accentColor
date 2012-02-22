@@ -31,7 +31,7 @@ function init() {
 							$this.css("color", color);
 							$(".examples .border a[href=\""+$this.attr("href")+"\"]").css("border-color", color);
 							$(".examples .background a[href=\""+$this.attr("href")+"\"]").css("background-color", color);
-						}}); 
+						}});
 	});
 
 	$(".docs a").not(".internal").each(function() {
